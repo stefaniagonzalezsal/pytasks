@@ -7,7 +7,10 @@ def guardar_tareas(tareas, ruta="data/tareas.json"):
         json.dump(lista_dict, archivo, indent=4)
 
 def cargar_tareas(ruta= "data/tareas.json"):
-    with open(ruta, "r") as archivo:
-        lista_dict = json.load(archivo)
-    tareas = [Tarea.from_dict(dato) for dato in lista_dict]
-    return tareas
+    try:
+         with open(ruta, "r") as archivo:
+            lista_dict = json.load(archivo)
+            tareas = [Tarea.from_dict(dato) for dato in lista_dict]
+         return tareas
+    except FileNotFoundError:
+        return []
